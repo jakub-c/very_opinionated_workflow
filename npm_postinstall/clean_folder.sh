@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function remove_repo {
-  read -p "Do you want to remove .git files (confirmation recommented) (y/n)?" choice
+  read -p "Do you want to remove .git files (confirmation recommented) (yes/no)?" choice
   case "$choice" in 
     yes|YES ) 
         echo "Old git repo files removed"
