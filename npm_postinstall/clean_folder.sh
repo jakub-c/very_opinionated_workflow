@@ -12,10 +12,6 @@ function remove_repo {
   esac
 }
 
-#rename project settings to match project name, name taken from containing folder
-PROJECTNAME=${PWD##*/}
-mv very_opinionated_workflow.sublime-project "$PROJECTNAME.sublime-project"
-
 #remove git repo files for a clean slate
 remove_repo
 
