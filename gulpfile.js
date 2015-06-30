@@ -79,7 +79,7 @@ gulp.task('serve', ['sass', 'lint'], function() {
     open: false,
     ghostMode: false
   });
-  gulp.watch('app/sass/*.scss', ['sass']);
+  gulp.watch('app/sass{,/**}', ['sass']);
   gulp.watch('app/*.html').on('change', browserSync.reload);
   gulp.watch(['app/js/**/*', './gulpfile.js'], ['lint'])
     .on('change', browserSync.reload);
