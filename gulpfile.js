@@ -1,21 +1,21 @@
-var gulp         = require('gulp');
-var browserSync  = require('browser-sync').create();
-var sass         = require('gulp-sass');
+var gulp = require('gulp');
+var browserSync = require('browser-sync').create();
+var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps   = require('gulp-sourcemaps');
-var del          = require('del');
-var runSequence  = require('run-sequence');
-var minifyCss    = require('gulp-minify-css');
-var imagemin     = require('gulp-imagemin');
-var uglify       = require('gulp-uglify');
-var notify       = require('gulp-notify');
-var plumber      = require('gulp-plumber');
-var eslint       = require("gulp-eslint");
+var sourcemaps = require('gulp-sourcemaps');
+var del = require('del');
+var runSequence = require('run-sequence');
+var minifyCss = require('gulp-minify-css');
+var imagemin = require('gulp-imagemin');
+var uglify = require('gulp-uglify');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var eslint = require('gulp-eslint');
 
 var notifyError = function(err, lang) {
-  console.log('------------------ error ------------------');
-  console.log(err.toString());
-  console.log('-------------------------------------------');
+  process.stdout.write('------------------ error ------------------');
+  process.stdout.write(err.toString());
+  process.stdout.write('-------------------------------------------');
   notify.onError({
     title: lang + ' error',
     message: 'Check console',
@@ -39,13 +39,13 @@ var AUTOPREFIXER_BROWSERS = [
 gulp.task('sass', function() {
   return gulp.src('app/sass/*.scss')
     .pipe(plumber(function() {
-        this.emit('end');
-      }))
+      this.emit('end');
+    }))
     .pipe(sass({
       errLogToConsole: true
     }))
     .on('error', function(err) {
-      notifyError(err, 'SASS')
+      notifyError(err, 'SASS');
     })
     .pipe(sourcemaps.init())
     .pipe(autoprefixer({
@@ -62,7 +62,7 @@ gulp.task('sass-dist', function() {
       errLogToConsole: false
     }))
     .on('error', function(err) {
-      notifyError(err, 'SASS')
+      notifyError(err, 'SASS');
     })
     .pipe(autoprefixer({
       browsers: AUTOPREFIXER_BROWSERS
@@ -93,7 +93,7 @@ gulp.task('lint', function() {
     }))
     .pipe(eslint.format())
     .on('error', function(err) {
-      notifyError(err, 'JS Style')
+      notifyError(err, 'JS Style');
     })
     .pipe(plumber.stop());
 });
@@ -107,10 +107,10 @@ gulp.task('clean-dist', function(cb) {
 });
 gulp.task('copy-to-dist', function() {
   return gulp.src([
-      'app/**/*', '!app/sass{,/**}', '!app/img{,/**}', '!app/js{,/**}'
-    ],
-    {base: './app'})
-    .pipe(gulp.dest('dist'));
+    'app/**/*', '!app/sass{,/**}', '!app/img{,/**}', '!app/js{,/**}'
+  ],
+  {base: './app'})
+  .pipe(gulp.dest('dist'));
 });
 gulp.task('copy-images', function() {
   return gulp.src(['app/img/**/*'], {base: './app'})
@@ -124,7 +124,7 @@ gulp.task('copy-js', function() {
 });
 
 gulp.task('default', ['serve']);
-gulp.task('dist', function(callback) {
+gulp.task('dist', function() {
   runSequence(
     'lint', 'clean-dist', 'sass-dist',
     'copy-to-dist', 'copy-images', 'copy-js'
