@@ -1,0 +1,11 @@
+{
+  "extends": "google",
+  "env": {
+    "es6": false,
+    "browser": true,
+    "jquery": true
+  },
+  "rules": {
+    "no-console": 1
+  }
+}

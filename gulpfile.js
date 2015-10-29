@@ -8,9 +8,9 @@ var runSequence  = require('run-sequence');
 var minifyCss    = require('gulp-minify-css');
 var imagemin     = require('gulp-imagemin');
 var uglify       = require('gulp-uglify');
-var jscs         = require('gulp-jscs');
 var notify       = require('gulp-notify');
 var plumber      = require('gulp-plumber');
+var eslint       = require("gulp-eslint");
 
 var notifyError = function(err, lang) {
   console.log('------------------ error ------------------');
@@ -88,7 +88,10 @@ gulp.task('serve', ['sass', 'lint'], function() {
 gulp.task('lint', function() {
   return gulp.src(['app/js/*.js', './gulpfile.js'])
     .pipe(plumber())
-    .pipe(jscs())
+    .pipe(eslint({
+      useEslintrc: true
+    }))
+    .pipe(eslint.format())
     .on('error', function(err) {
       notifyError(err, 'JS Style')
     })
