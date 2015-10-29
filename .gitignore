@@ -4,3 +4,4 @@ node_modules/
 dist/
 app/*.css
 app/sass/bootstrap/
+app/js/main.min.js
