@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Very opinionated workflow for static HTML/CSS/JS projects",
   "main": "index.html",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bash npm_postinstall/get_bootstrap.sh && bash npm_postinstall/clean_folder.sh"
+  },
   "author": "Jakub Cioslowski",
   "license": "ISC",
   "devDependencies": {
