@@ -11,6 +11,10 @@ var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
 var eslint = require('gulp-eslint');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var rename = require('gulp-rename');
 
 var notifyError = function(err, lang) {
   process.stdout.write('------------------ error ------------------');
@@ -38,6 +42,7 @@ var AUTOPREFIXER_BROWSERS = [
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
   return gulp.src('app/sass/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(plumber(function() {
       this.emit('end');
     }))
@@ -47,11 +52,10 @@ gulp.task('sass', function() {
     .on('error', function(err) {
       notifyError(err, 'SASS');
     })
-    .pipe(sourcemaps.init())
     .pipe(autoprefixer({
       browsers: AUTOPREFIXER_BROWSERS
     }))
-    .pipe(sourcemaps.write())
+    .pipe(sourcemaps.write(''))
     .pipe(gulp.dest('app/'))
     .pipe(browserSync.stream())
     .pipe(plumber.stop());
@@ -73,7 +77,7 @@ gulp.task('sass-dist', function() {
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['sass', 'lint'], function() {
+gulp.task('serve', ['sass', 'browserify', 'lint'], function() {
   browserSync.init({
     server: './app',
     open: false,
@@ -85,8 +89,23 @@ gulp.task('serve', ['sass', 'lint'], function() {
     .on('change', browserSync.reload);
 });
 
+gulp.task('browserify', function() {
+  var b = browserify({
+    entries: './app/js/main.js',
+    debug: true
+  });
+
+  return b.bundle()
+    .pipe(source('./app/js/main.js'))
+    .pipe(buffer())
+    .pipe(rename({
+      basename: 'main.bundled'
+    }))
+    .pipe(gulp.dest('.'));
+});
+
 gulp.task('lint', function() {
-  return gulp.src(['app/js/*.js', './gulpfile.js'])
+  return gulp.src(['app/js/*.js', '!app/js/main.bundled.js', './gulpfile.js'])
     .pipe(plumber())
     .pipe(eslint({
       useEslintrc: true
@@ -102,8 +121,8 @@ gulp.task('scripts', function() {
 
 });
 
-gulp.task('clean-dist', function(cb) {
-  del('dist', cb);
+gulp.task('clean-dist', function() {
+  del.sync('dist');
 });
 gulp.task('copy-to-dist', function() {
   return gulp.src([
@@ -118,7 +137,8 @@ gulp.task('copy-images', function() {
     .pipe(gulp.dest('dist/'));
 });
 gulp.task('copy-js', function() {
-  return gulp.src(['app/js/**/*'], {base: './app'})
+  return gulp.src(['app/js/main.bundled.js', 'app/js/libs/**/*'],
+    {base: './app'})
     .pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
@@ -126,7 +146,7 @@ gulp.task('copy-js', function() {
 gulp.task('default', ['serve']);
 gulp.task('dist', function() {
   runSequence(
-    'lint', 'clean-dist', 'sass-dist',
+    'browserify', 'lint', 'clean-dist', 'sass-dist',
     'copy-to-dist', 'copy-images', 'copy-js'
   );
 });
