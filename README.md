@@ -15,4 +15,4 @@ This project is meant to simplify the repetitive process of creating static web 
 
 Images should be kept in `app/img` folder
 
-Styleguide provided by JSCS
+Styleguide provided by ESLint and eslint-config-google preset
