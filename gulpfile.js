@@ -85,8 +85,7 @@ gulp.task('serve', ['sass', 'browserify', 'lint'], function() {
   });
   gulp.watch('app/sass{,/**}', ['sass']);
   gulp.watch('app/*.html').on('change', browserSync.reload);
-  gulp.watch(['app/js/**/*', './gulpfile.js'], ['lint'])
-    .on('change', browserSync.reload);
+  gulp.watch(['app/js/**/*', './gulpfile.js'], ['browserify', 'lint']);
 });
 
 gulp.task('browserify', function() {
@@ -101,7 +100,8 @@ gulp.task('browserify', function() {
     .pipe(rename({
       basename: 'main.bundled'
     }))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('.'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('lint', function() {
