@@ -26,6 +26,14 @@ function clean_up_repo {
   node npm_postinstall/clean_postinstall.js
 
   vagrant_keep_question
+
+  echo ""
+  echo "Removing installation dependencies"
+  rm -rf npm_postinstall
+
+  echo ""
+  printf "\033[32;1m Done. Have fun! \033[0m\n"
+
 }
 
 # Vagrant
