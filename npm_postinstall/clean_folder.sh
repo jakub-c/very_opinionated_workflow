@@ -29,7 +29,7 @@ function clean_up_repo {
 
   echo ""
   echo "Removing installation dependencies"
-  rm -rf npm_postinstall
+  rm -rf npm_postinstall/
 
   echo ""
   printf "\033[32;1m Done. Have fun! \033[0m\n"
