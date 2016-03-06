@@ -5,7 +5,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
 var runSequence = require('run-sequence');
-var minifyCss = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 var imagemin = require('gulp-imagemin');
 var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
@@ -71,7 +71,7 @@ gulp.task('sass-dist', function() {
     .pipe(autoprefixer({
       browsers: AUTOPREFIXER_BROWSERS
     }))
-    .pipe(minifyCss())
+    .pipe(cleanCSS())
     .pipe(gulp.dest('app/'))
     .pipe(browserSync.stream());
 });
