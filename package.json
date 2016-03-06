@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bash npm_postinstall/get_bootstrap.sh && bash npm_postinstall/clean_folder.sh && node npm_postinstall/clean_postinstall.js"
+    "postinstall": "bash npm_postinstall/get_bootstrap.sh && node npm_postinstall/clean_postinstall.js && bash npm_postinstall/clean_folder.sh"
   },
   "author": "Jakub Cioslowski",
   "license": "ISC",
