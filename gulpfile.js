@@ -38,6 +38,7 @@ gulp.task('sass', function() {
       .on('error', notify.onError(
         {message: 'There is a SASS error, please look the console for details'}
       ))
+      .on('error', sass.logError)
     )
     .pipe(autoprefixer({
       browsers: AUTOPREFIXER_BROWSERS
@@ -78,14 +79,15 @@ gulp.task('js-lint', function() {
   const gulpif = require('gulp-if');
   const notify = require('gulp-notify');
 
-  return gulp.src(['source/js/*.js', '!source/js/main.bundled.js', './gulpfile.js'])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-    .on('error', notify.onError(
-      {message: 'There is a JS error, please look the console for details'})
-    )
-    .pipe(gulpif(isProduction, eslint.failAfterError()));
+  return gulp.src(['source/js/*.js', '!source/js/main.bundled.js',
+    './gulpfile.js'])
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError())
+      .on('error', notify.onError(
+        {message: 'There is a JS error, please look the console for details'})
+      )
+      .pipe(gulpif(isProduction, eslint.failAfterError()));
 });
 
 gulp.task('browserify', function() {
