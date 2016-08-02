@@ -2,7 +2,7 @@
 *.sublime-workspace
 node_modules/
 dist/
-app/*.css
-app/sass/bootstrap/
-app/js/main.min.js
-app/js/main.bundled.js
+source/*.css
+source/sass/bootstrap/
+source/js/main.min.js
+source/js/main.bundled.js
