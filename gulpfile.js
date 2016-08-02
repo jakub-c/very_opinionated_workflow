@@ -32,7 +32,7 @@ gulp.task('sass', function() {
     isDev = true;
   }
 
-  return gulp.src('app/sass/*.scss')
+  return gulp.src('source/sass/*.scss')
     .pipe(gulpif(isDev, sourcemaps.init()))
     .pipe(sass({outputStyle: 'expanded'})
       .on('error', notify.onError(
@@ -43,7 +43,7 @@ gulp.task('sass', function() {
       browsers: AUTOPREFIXER_BROWSERS
     }))
     .pipe(gulpif(isDev, sourcemaps.write('')))
-    .pipe(gulp.dest('app/'))
+    .pipe(gulp.dest('source/'))
     .pipe(browserSync.stream());
 });
 
@@ -55,13 +55,13 @@ gulp.task('sass-lint', function() {
   const notify = require('gulp-notify');
 
   return gulp.src([
-    '!app/sass/_variables.scss',
-    '!app/sass/bootstrap/**/*',
-    '!app/sass/general/**/*',
-    '!app/sass/mixins/**/*',
-    '!app/sass/libs/**/*',
-    '!app/sass/_non-standard-props.scss',
-    'app/sass/**/*.scss'
+    '!source/sass/_variables.scss',
+    '!source/sass/bootstrap/**/*',
+    '!source/sass/general/**/*',
+    '!source/sass/mixins/**/*',
+    '!source/sass/libs/**/*',
+    '!source/sass/_non-standard-props.scss',
+    'source/sass/**/*.scss'
   ])
     .pipe(sassLint())
     .pipe(sassLint.format())
@@ -78,7 +78,7 @@ gulp.task('js-lint', function() {
   const gulpif = require('gulp-if');
   const notify = require('gulp-notify');
 
-  return gulp.src(['app/js/*.js', '!app/js/main.bundled.js', './gulpfile.js'])
+  return gulp.src(['source/js/*.js', '!source/js/main.bundled.js', './gulpfile.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError())
@@ -102,12 +102,12 @@ gulp.task('browserify', function() {
   }
 
   return browserify({
-    entries: './app/js/main.js',
+    entries: './source/js/main.js',
     debug: browserifyDebug
   })
     .transform('babelify', {presets: ["es2015"]})
     .bundle()
-    .pipe(source('./app/js/main.js'))
+    .pipe(source('./source/js/main.js'))
     .pipe(buffer())
     .pipe(rename({
       basename: 'main.bundled'
@@ -126,8 +126,8 @@ gulp.task('clean-dist', function() {
 // additional minification
 gulp.task('copy-files', function() {
   return gulp.src([
-    'app/**/*', '!app/*.css', '!app/sass{,/**}',
-    '!app/img{,/**}', '!app/js{,/**}'
+    'source/**/*', '!source/*.css', '!source/sass{,/**}',
+    '!source/img{,/**}', '!source/js{,/**}'
   ],
   {base: './app'})
     .pipe(gulp.dest('dist'));
@@ -135,14 +135,14 @@ gulp.task('copy-files', function() {
 gulp.task('dist-images', function() {
   const imagemin = require('gulp-imagemin');
 
-  return gulp.src(['app/img/**/*'], {base: './app'})
+  return gulp.src(['source/img/**/*'], {base: './app'})
     .pipe(imagemin())
     .pipe(gulp.dest('dist/'));
 });
 gulp.task('dist-js', function() {
   const uglify = require('gulp-uglify');
 
-  return gulp.src(['app/js/main.bundled.js', 'app/js/libs/**/*'],
+  return gulp.src(['source/js/main.bundled.js', 'source/js/libs/**/*'],
     {base: './app'})
     .pipe(uglify())
     .pipe(gulp.dest('dist/'));
@@ -151,7 +151,7 @@ gulp.task('dist-js', function() {
 gulp.task('dist-css', function() {
   const cssnano = require('gulp-cssnano');
 
-  return gulp.src('app/*.css')
+  return gulp.src('source/*.css')
     .pipe(cssnano({
       autoprefixer: {browsers: AUTOPREFIXER_BROWSERS}
     }))
@@ -173,9 +173,9 @@ gulp.task('serve', ['sass', 'browserify', 'js-lint', 'sass-lint'], function() {
     open: false,
     ghostMode: false
   });
-  gulp.watch('app/sass{,/**}', ['sass', 'sass-lint']);
-  gulp.watch('app/*.html').on('change', browserSync.reload);
-  gulp.watch(['app/js/**/*', './gulpfile.js'], ['browserify', 'js-lint']);
+  gulp.watch('source/sass{,/**}', ['sass', 'sass-lint']);
+  gulp.watch('source/*.html').on('change', browserSync.reload);
+  gulp.watch(['source/js/**/*', './gulpfile.js'], ['browserify', 'js-lint']);
 });
 
 gulp.task('default', ['serve']);
