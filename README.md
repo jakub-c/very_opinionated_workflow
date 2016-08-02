@@ -9,6 +9,8 @@ This project is meant to simplify the repetitive process of creating static web 
 **Pro tip:** clone repo to a folder with a name of your choice:   
 `git clone https://github.com/jakub-c/very_opinionated_workflow.git your-folder-name`
 
+Run `remove-git.js` to remove git files connected to this repo, feel free to delete `remove-git.js` afterwards.
+
 `gulp` - starts dev mode
 
 `gulp dist` - minifies code, optimizes images
