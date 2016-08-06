@@ -1,6 +1,6 @@
 {
   "name": "very_opinionated_workflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Very opinionated workflow for static HTML/CSS/JS projects",
   "main": "index.html",
   "scripts": {
