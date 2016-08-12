@@ -26,7 +26,7 @@ gulp.task('sass', function() {
   const notify = require('gulp-notify');
 
   let isDev;
-  if (argv.production || process.env.PRODUCTION) {
+  if (argv.production || (process.env.NODE_ENV === 'production')) {
     isDev = false;
   } else {
     isDev = true;
