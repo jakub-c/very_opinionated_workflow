@@ -4,6 +4,8 @@
 	"description": "Very opinionated workflow for static HTML/CSS/JS projects",
 	"main": "index.html",
 	"scripts": {
+		"start": "node_modules/.bin/gulp",
+		"build": "node_modules/.bin/gulp dist",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"validate": "npm ls"
 	},
