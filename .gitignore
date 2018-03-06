@@ -5,6 +5,7 @@ dist/
 source/*.css
 source/js/main.min.js
 source/js/main.bundled.js
+.npmrc
 
 # Created by https://www.gitignore.io/api/node,macos
 
