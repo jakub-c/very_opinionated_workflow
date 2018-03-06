@@ -1,12 +1,12 @@
 {
-  "extends": "google",
-  "env": {
-    "es6": true,
-    "node": true,
-    "browser": true,
-    "jquery": true
-  },
-  "rules": {
-    "no-console": 1
-  }
+	"extends": ["airbnb", "prettier"],
+	"env": {
+		"es6": true,
+		"node": true,
+		"browser": true,
+		"jquery": true
+	},
+	"rules": {
+		"no-console": 1
+	}
 }
