@@ -1,20 +1,20 @@
 # Very opinionated workflow
+
 **for static HTML/SASS/JS projects**
 
 This project is meant to simplify the repetitive process of creating static web projects. It's based on subjective choice of tools and frameworks (gulp, bootstrap, html5 boilerplate, sass etc.). Cut down to bare essentials.
 
 ##How to:
-**Pro tip:** if you use Sublime Text please open the project through `project.sublime-project` file to maintain all the settings provided
 
-**Pro tip:** clone repo to a folder with a name of your choice:   
+**Pro tip:** clone repo to a folder with a name of your choice:  
 `git clone https://github.com/jakub-c/very_opinionated_workflow.git your-folder-name`
 
 Run `remove-git.js` to remove git files connected to this repo, feel free to delete `remove-git.js` afterwards.
 
-`gulp` - starts dev mode
+`npm start` - starts dev mode
 
-`gulp dist` - minifies code, optimizes images
+`npm run build` - moves files to `build/` folder, minifies code, optimizes images
 
-Images should be kept in `app/img` folder
+Images should be kept in `source/img` folder
 
-Styleguide provided by ESLint and eslint-config-google preset
+Styleguide provided by ESLint and eslint-config-airnbnb, eslint-config-prettier presets
