@@ -140,7 +140,7 @@ gulp.task("browserify", () => {
 gulp.task("clean-dist", () => {
 	const del = require("del");
 
-	del.sync("dist");
+	del.sync("build");
 });
 
 // copy all files but the ones that need to go through
@@ -157,7 +157,7 @@ gulp.task("copy-files", () => {
 			],
 			{ base: "./source" }
 		)
-		.pipe(gulp.dest("dist"));
+		.pipe(gulp.dest("build"));
 });
 gulp.task("dist-images", () => {
 	const imagemin = require("gulp-imagemin");
@@ -165,7 +165,7 @@ gulp.task("dist-images", () => {
 	return gulp
 		.src(["source/img/**/*"], { base: "./source" })
 		.pipe(imagemin())
-		.pipe(gulp.dest("dist/"));
+		.pipe(gulp.dest("build/"));
 });
 gulp.task("dist-js", () => {
 	const uglify = require("gulp-uglify");
@@ -175,7 +175,7 @@ gulp.task("dist-js", () => {
 			base: "./source"
 		})
 		.pipe(uglify())
-		.pipe(gulp.dest("dist/"));
+		.pipe(gulp.dest("build/"));
 });
 
 gulp.task("dist-css", () => {
@@ -188,7 +188,7 @@ gulp.task("dist-css", () => {
 				autoprefixer: { browsers: AUTOPREFIXER_BROWSERS }
 			})
 		)
-		.pipe(gulp.dest("dist/"));
+		.pipe(gulp.dest("build/"));
 });
 
 gulp.task("dist", () => {

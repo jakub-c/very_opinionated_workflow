@@ -1,7 +1,7 @@
 
 # project specific ignores - do not remove
 
-dist/
+build/
 source/*.css
 source/js/main.min.js
 source/js/main.bundled.js
