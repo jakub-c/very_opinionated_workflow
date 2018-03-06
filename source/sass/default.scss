@@ -1,24 +1,15 @@
 /*! Part of https://github.com/jakub-c/very_opinionated_workflow/ */
 
-// Core variables and mixins
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins';
-
-// Reset and dependencies
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize';
-
-// Core CSS
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid';
+// import
+@import "../../node_modules/bootstrap/scss/bootstrap-reboot";
+@import "../../node_modules/bootstrap/scss/bootstrap-grid";
 
 // Utility classes
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities';
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities';
+@import "../../node_modules/bootstrap/scss/images";
 
-
-// Kunde & Co mixins
-@import 'mixins/font-size';
-@import 'mixins/respond-to';
+// very_opinionated_mixins
+@import "mixins/font-size";
+@import "mixins/respond-to";
 // @import 'general/icons';
 
-@import 'general/global';
+@import "general/global";
